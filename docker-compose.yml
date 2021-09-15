@@ -1,0 +1,33 @@
+version: '3'
+
+services:
+  redis:
+    container_name: redis
+    image: redis
+    restart: always
+    ports:
+      - 9000:6379
+    volumes:
+      - ./redisData:/data
+    networks:
+      - my-network
+
+  myapp:
+    container_name: myapp
+    restart: always
+    build: .
+    ports:
+      - '8001:5000'
+    volumes:
+      - ./:/app
+      - /node_modules
+    depends_on:
+      - redis
+    environment:
+      TZ: Africa/Kigali
+    command: npm run server
+    networks:
+      - my-network
+
+networks:
+  my-network:
