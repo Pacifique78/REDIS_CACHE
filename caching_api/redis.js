@@ -1,7 +1,6 @@
 import redis from 'redis';
 const client = redis.createClient({
   port: 6379,
-  host: 'redis',
 });
 
 // log error to the console if any occurs
